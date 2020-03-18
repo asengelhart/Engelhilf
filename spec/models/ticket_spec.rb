@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
   before do
+    User.destroy_all
+    Ticket.destroy_all
+    Comment.destroy_all
     @user = User.create!(username: "Jim", email: "jim@example.com", password: "password", is_admin: true)
     @ticket = Ticket.create!(subject: "subject", content: "content", user: @user, urgency: 0, closed_at: nil)
     @comment1 = Comment.create!(content: "content1", ticket: @ticket, user: @user)

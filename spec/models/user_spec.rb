@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
+    User.destroy_all
+    Ticket.destroy_all
+    Comment.destroy_all
+    
     @user = User.create!(username: "Jim", email: "jim@example.com", password: "password")
     @invalid_user1 = User.new(email: "jim@example.com", password: "password")
     @invalid_user2 = User.new(username: "Jim", password: "password")
