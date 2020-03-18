@@ -1,2 +1,8 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Login Here:</h1>
+<%= form_for @user do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %> <br>
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+<% end %>
+<%= link_for "...or login using Google!", '/auth/google' %>

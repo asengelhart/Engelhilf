@@ -1,15 +1,18 @@
 class SessionsController < ApplicationController
   def new
-    if logged_in?
-      redirect_to user_path(logged_in_user)
-    else
-      redirect_to login_path
-    end
+    @user = User.new
   end
 
   def create
+    
   end
 
   def destroy
+  end
+
+  private
+
+  def auth
+    request.env['omniauth.auth']
   end
 end
