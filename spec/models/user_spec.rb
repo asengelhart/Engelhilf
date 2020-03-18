@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user = User.create!(username: "Jim", email: "jim@example.com", password: "password", is_admin: true)
+    @user = User.create!(username: "Jim", email: "jim@example.com", password: "password")
     @invalid_user1 = User.new(email: "jim@example.com", password: "password")
     @invalid_user2 = User.new(username: "Jim", password: "password")
     @invalid_user3 = User.new(username: "Jim", email: "jim@example.com")
@@ -19,6 +19,7 @@ RSpec.describe User, type: :model do
     expect(@user.username).to eq("Jim")
     expect(@user.email).to eq("jim@example.com")
     expect(@user.authenticate("password")).to be_truthy
+    expect(@user.is_admin).to eq(false)
   end
 
   it "is invalid without a username, password, or email" do
