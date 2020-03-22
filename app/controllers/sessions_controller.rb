@@ -3,6 +3,17 @@ class SessionsController < ApplicationController
     @user = User.new
   end
 
+  def create
+    @user = User.find_by(email: params[:email])
+    if @user.authenticate(params[:password])
+      log_in(@user)
+      redirect_to user_path(@user)
+    else
+      flash[:alert] = "User credentials are invalid, please try again."
+      render :new
+    end
+  end
+
   def create_by_oauth2
     if auth['uid']
       user = User.find_or_create_by(uid: auth['uid']) do |u|
@@ -11,7 +22,7 @@ class SessionsController < ApplicationController
         u.password = SecureRandom.hex
       end
       if user.valid?
-        session[:user_id] = user.id
+        log_in(user)
         redirect_to user_path(logged_in_user)
       else
         flash[:alert] = "There was a problem logging in."
@@ -30,4 +41,8 @@ class SessionsController < ApplicationController
   def auth
     request.env['omniauth.auth']
   end
+
+  def log_in(user)
+    session[:user_id] = user.id
+  end 
 end

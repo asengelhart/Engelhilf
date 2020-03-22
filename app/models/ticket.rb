@@ -6,8 +6,24 @@ class Ticket < ApplicationRecord
   validates :content, presence: true
   validates :urgency, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 2}
 
-  def closed?
+  def closed
     !!closed_at
+  end
+
+  def closed=(closed)
+    if closed == true
+      self.closed_at = Time.zone.now
+    elsif closed == false
+      self.closed_at = nil
+    end
+  end
+
+  def self.urgency_levels
+    {
+      0 => "It's an annoyance.",
+      1 => "It's hurting my productivity.",
+      2 => "I can't work because of this."
+    }
   end
 
   def self.only_an_annoyance
@@ -20,5 +36,9 @@ class Ticket < ApplicationRecord
 
   def self.halts_work
     where(urgency: 2)
+  end
+
+  def self.open_tickets
+    where(cldosed_at: nil)
   end
 end

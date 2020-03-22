@@ -1,8 +1,9 @@
 <h1>Login Here:</h1>
-<%= form_for @user do |f| %>
-  <%= f.label :email %>
-  <%= f.text_field :email %> <br>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
+<%= form_tag({controller: 'sessions', action: 'create', method: 'post'}) do %>
+  <%= label_tag :email %>
+  <%= text_field_tag :email %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <%= submit_tag "Submit "%>
 <% end %>
 <%= link_to "...or login using Google!", '/auth/google_oauth2' %>

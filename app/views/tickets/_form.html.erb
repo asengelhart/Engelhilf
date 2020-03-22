@@ -1,0 +1,20 @@
+<%= form_for @ticket do |f| %>
+  <% if logged_in_user.is_admin %>
+    <%= f.collection_select :user_id, User.all, :id, :email %> <br>
+  <% else %>
+    <%= f.hidden_field :user_id, logged_in_user.id %>
+  <% end %>
+  <div>
+    <%= f.label :subject %> <br>
+    <%= f.text_field :subject %> <br>
+  </div>
+  <div>
+    <%= f.label :content, "Describe your problem:" %> <br>
+    <%= f.text_area :content %> <br>
+  </div>
+  <div>
+    <%= f.label :urgency, "How urgent is your problem? (select one)" %> <br>
+    <%= f.collection_radio_buttons :urgency, Ticket.urgency_levels, :first, :last %> <br>
+  </div>
+  <%= f.submit %>
+<% end %>

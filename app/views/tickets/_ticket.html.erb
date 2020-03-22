@@ -1,0 +1,8 @@
+<h3><%= ticket.subject %></h3>
+<div><p>Urgency level: <%= Ticket.urgency_levels[ticket.urgency] %></p></div>
+<% if ticket.closed? %>
+  <div><p>Closed on: <%= ticket.closed_at %></p></div>
+<% end %>
+<div>
+  <p><%= ticket.content %></p>
+</div>

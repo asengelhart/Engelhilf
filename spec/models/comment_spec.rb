@@ -8,8 +8,8 @@ RSpec.describe Comment, type: :model do
     
     @user = User.create!(username: "Jim", email: "jim@example.com", password: "password")
 
-    @ticket1 = Ticket.create!(subject: "subject1", content: "content1", user: @user)
-    @ticket2 = Ticket.create!(subject: "subject2", content: "content2", user: @user)
+    @ticket1 = Ticket.create!(subject: "subject1", content: "content1", user: @user, urgency: 0)
+    @ticket2 = Ticket.create!(subject: "subject2", content: "content2", user: @user, urgency: 0)
 
     @comment1 = Comment.create!(content: "content1", ticket: @ticket1, user: @user)
     @comment2 = Comment.create!(content: "content2", ticket: @ticket1, user: @user)

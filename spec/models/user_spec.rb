@@ -5,14 +5,14 @@ RSpec.describe User, type: :model do
     User.destroy_all
     Ticket.destroy_all
     Comment.destroy_all
-    
+
     @user = User.create!(username: "Jim", email: "jim@example.com", password: "password")
     @invalid_user1 = User.new(email: "jim@example.com", password: "password")
     @invalid_user2 = User.new(username: "Jim", password: "password")
     @invalid_user3 = User.new(username: "Jim", email: "jim@example.com")
 
-    @ticket1 = Ticket.create!(subject: "subject1", content: "content1", user: @user)
-    @ticket2 = Ticket.create!(subject: "subject2", content: "content2", user: @user)
+    @ticket1 = Ticket.create!(subject: "subject1", content: "content1", user: @user, urgency: 0)
+    @ticket2 = Ticket.create!(subject: "subject2", content: "content2", user: @user, urgency: 1)
 
     @comment1 = Comment.create!(content: "content1", ticket: @ticket1, user: @user)
     @comment2 = Comment.create!(content: "content2", ticket: @ticket1, user: @user)
