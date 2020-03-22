@@ -5,6 +5,7 @@ class Ticket < ApplicationRecord
   validates :user, presence: true
   validates :content, presence: true
   validates :urgency, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 2}
+  accepts_nested_attributes_for :comments, reject_if: proc {|attrs| attrs[:content].blank?}
 
   def closed
     !!closed_at

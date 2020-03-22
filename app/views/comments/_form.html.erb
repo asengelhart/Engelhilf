@@ -1,7 +1,7 @@
-<%= form_for @comment do |f| %>
-  <%= f.hidden_field :ticket_id %>
-  <%= f.hidden_field :user_id, value: logged_in_user.id %>
-  <%= f.label :content, "Enter note here:" %> <br>
-  <%= f.text_field :content %>
-  <%= f.submit %>
+<!--Note that this partial should only be used within a ticket form-->
+<%= form.fields_for :comments, ticket.comments.build do |c| %>
+  <!--<%= c.hidden_field :ticket_id %>-->
+  <%= c.hidden_field :user_id, value: logged_in_user.id %>
+  <%= c.label :content, "Enter note here:" %> <br>
+  <%= c.text_field :content %>
 <% end %>

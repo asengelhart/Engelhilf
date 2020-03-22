@@ -8,4 +8,7 @@
 <% end %>
 <br>
 <h3>Add comment:</h3>
-<%= render partial: 'comments/form', locals: {comment: @comment } %>
+<%= form_for @ticket do |f| %>
+  <%= render partial: 'comments/form', locals: {ticket: @ticket, form: f } %>
+  <%= f.submit "Create Comment" %>
+<% end %>

@@ -37,13 +37,22 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:subject, :content, :urgency, :user_id, :closed)
+    params.require(:ticket).permit(
+      :subject,
+      :content,
+      :urgency,
+      :user_id,
+      :closed,
+      comments_attributes: [
+        :content,
+        :user_id
+      ])
   end
 
   def validate_ticket(ticket)
     if ticket.valid?
       ticket.save
-      redirect_to ticket_path(@ticket)
+      redirect_to ticket_path(ticket)
     else
       flash[:alert] = @ticket.errors.full_messages
       render :new
