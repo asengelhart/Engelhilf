@@ -1,5 +1,5 @@
 <%= form_for @ticket do |f| %>
-  <%= user_field(@user_id, @display_user_list) %>
+  <%= user_field(f, @user_id, @display_user_list) %>
   <div>
     <%= f.label :subject %> <br>
     <%= f.text_field :subject %> <br>
