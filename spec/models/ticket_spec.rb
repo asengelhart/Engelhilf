@@ -44,6 +44,12 @@ RSpec.describe Ticket, type: :model do
 
   it "is not closed if closed_at is nil" do
     expect(@ticket.closed_at).to be_nil
-    expect(@ticket.closed?).to be_falsy
+    expect(@ticket.closed).to be_falsy
+  end
+
+  it "closes a ticket when call closed=true" do
+    @ticket.closed = true
+    expect(@ticket.closed).to eq(true)
+    expect(@ticket.closed_at.strftime("%Y %m %d")).to eq(Time.zone.now.strftime("%Y %m %d"))
   end
 end

@@ -23,8 +23,8 @@ describe "sessions", type: :feature do
 
     it "logs in a valid user" do
       visit "/login"
-      fill_in "user_email", with: @user.email
-      fill_in "user_password", with: "password"
+      fill_in "email", with: @user.email
+      fill_in "password", with: "password"
       click_button "Submit"
       expect(current_path).to eq(user_path(@user))
     end
