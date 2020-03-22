@@ -10,7 +10,7 @@
       <td><%= link_to ticket.subject, ticket_path(ticket) %></td>
       <td><%= ticket.created_at %></td>
       <td><%= ticket.updated_at %></td>
-      <td><%= ticket.closed_at if ticket.closed? %></td>
+      <td><%= ticket.closed_at if ticket.closed %></td>
     </tr>
   <% end %>
 </table>

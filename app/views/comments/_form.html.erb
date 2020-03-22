@@ -1,5 +1,6 @@
 <%= form_for @comment do |f| %>
-  <%= f.hidden_field :post_id, @comment.post_id %>
+  <%= f.hidden_field :ticket_id %>
+  <%= f.hidden_field :user_id, value: logged_in_user.id %>
   <%= f.label :content, "Enter note here:" %> <br>
   <%= f.text_field :content %>
   <%= f.submit %>

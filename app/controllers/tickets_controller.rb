@@ -5,6 +5,7 @@ class TicketsController < ApplicationController
 
   def show
     @ticket = Ticket.find_by(id: params[:id])
+    @comment = @ticket.comments.build
   end
 
   def create
@@ -21,6 +22,6 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:subject, :content, :urgency, :user_id)
+    params.require(:ticket).permit(:subject, :content, :urgency, :user_id, :closed)
   end
 end

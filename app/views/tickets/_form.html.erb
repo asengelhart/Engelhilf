@@ -16,5 +16,9 @@
     <%= f.label :urgency, "How urgent is your problem? (select one)" %> <br>
     <%= f.collection_radio_buttons :urgency, Ticket.urgency_levels, :first, :last %> <br>
   </div>
+  <div>
+    <%= f.label :closed, "Check this box to close the ticket:" %>
+    <%= f.check_box :closed, true, false %>
+  </div>
   <%= f.submit %>
 <% end %>
