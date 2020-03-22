@@ -1,9 +1,5 @@
 <%= form_for @ticket do |f| %>
-  <% if logged_in_user.is_admin %>
-    <%= f.collection_select :user_id, User.all, :id, :email %> <br>
-  <% else %>
-    <%= f.hidden_field :user_id, logged_in_user.id %>
-  <% end %>
+  <%= user_field(@user_id, @display_user_list) %>
   <div>
     <%= f.label :subject %> <br>
     <%= f.text_field :subject %> <br>

@@ -1,6 +1,15 @@
 class TicketsController < ApplicationController
   def new
     @ticket = Ticket.new
+    @display_user_list = false
+    if params[:user_id]
+      @user_id = params[:user_id]
+    else
+      @user_id = logged_in_user.id
+      if logged_in_user.is_admin?
+        @display_user_list = true
+      end
+    end
   end
 
   def edit
