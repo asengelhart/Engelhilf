@@ -16,3 +16,7 @@
 td {
   border: 1px solid black;
 }
+
+.error_message {
+  color: red;
+}
