@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
   def check_logged_in
     redirect_to login_path unless logged_in?
   end
+
+  def redirect_with_error(alert)
+    flash[:alert] = alert
+    redirect_to "/"
+  end
 end
