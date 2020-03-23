@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for?(:title) ? yield :title : "Engelhilf" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Engelhilf" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,12 @@
   </head>
 
   <body>
+    <nav>
+      <% if logged_in? %>
+        <%= link_to "My tickets", user_tickets_path(logged_in_user.id) %>
+        <%= link_to "Log out", logout_path, method: :post %>
+      <% end %>
+    </nav>
     <% if flash[:alert] %>
       <h3 class="error_message"><%= flash[:alert] %></h3>
     <% end %>
