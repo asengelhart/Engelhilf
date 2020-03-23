@@ -1,24 +1,9 @@
-# README
+# Engelhilf
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple web application for tracking helpdesk requests.  Allows communication between admins and users via comments on each ticket, tracks urgency levels for tickets, and allows filtering by urgency level and whether a ticket is closed or not.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup
+1. Clone this repository.
+2. Run `bundle install` and `rails db:migrate` from the command line.
+3. Open db/seeds.rb, look for the line that begins with `User.create!`, and fill in an administrator username, email address and password inside the quotation marks.
+4. Run `rails db:seed` in your console.  This creates the initial administrator account.
