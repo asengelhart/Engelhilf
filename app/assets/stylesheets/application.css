@@ -17,6 +17,16 @@ td {
   border: 1px solid black;
 }
 
+textarea {
+  width: 50%;
+  height: 50px;
+  resize: none;
+}
+
 .error_message {
   color: red;
+}
+
+.comment_block {
+  border: 1px solid black;
 }
