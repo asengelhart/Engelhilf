@@ -33,4 +33,46 @@ describe "tickets", type: :feature do
       expect(@ticket1.comments.last.content).to eq("new comment")
     end
   end
+
+  describe "GET new" do
+    it "allows an admin to submit tickets on behalf of user" do
+      log_me_in(@admin.email, "password")
+      visit new_ticket_path
+      select @user.email, from: "ticket_user_id"
+      fill_in "ticket_subject", with: "New ticket"
+      fill_in "ticket_content", with: "Ticket content"
+      choose "ticket_urgency_0"
+      click_on "Create Ticket"
+      expect(@user.tickets.last.content).to eq("Ticket content")
+    end
+
+    it "disallows having empty fields" do
+      log_me_in(@admin.email, "password")
+      visit new_ticket_path
+      select @user.email, from: "ticket_user_id"
+      fill_in "ticket_subject", with: "New ticket"
+      fill_in "ticket_content", with: "Ticket content"
+      click_on "Create Ticket"
+      expect(page).to have_content("Urgency can't be blank")
+
+      visit new_ticket_path
+      fill_in "ticket_subject", with: "New ticket"
+      fill_in "ticket_content", with: ""
+      choose "ticket_urgency_1"
+      click_on "Create Ticket"
+      expect(page).to have_content("Content can't be blank")
+    end
+  end
+
+  describe "GET edit" do
+    it "opens and closes tickets when checkbox is clicked" do
+      log_me_in(@admin.email, "password")
+      visit edit_ticket_path(@ticket1)
+      expect(page).to have_field("ticket_closed")
+      expect(page).not_to have_checked_field("ticket_closed")
+      check "ticket_closed"
+      click_on "Update Ticket"
+      expect(page).to have_content("Closed")
+    end
+  end
 end

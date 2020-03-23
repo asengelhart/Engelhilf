@@ -1,0 +1,10 @@
+<% title "All Tickets" %>
+<h3>Filter tickets:</h3>
+<%= form_with url: tickets_path, method: "get" do |f| %>
+  <%= f.label :urgency_levels, "Which urgency levels do you want to see?" %> <br>
+  <%= f.collection_check_boxes :urgency_levels, @urgency_levels, :first, :last %> <br>
+  <%= f.label :open_or_closed, "What ticket status do you want to see?" %> <br>
+  <%= f.collection_radio_buttons :open_or_closed, @open_closed_options, :to_s, :capitalize %> <br>
+  <%= f.submit %>
+<% end %>
+<%= render partial: "tickets", locals: {tickets: @tickets} %>

@@ -1,3 +1,4 @@
+<% title "Ticket: #{@ticket.subject}" %>
 <%= render partial: 'ticket', locals: {ticket: @ticket} %>
 <h3>Comments:</h3>
 <%= render partial: 'comments/comments', locals: {comments: @ticket.comments} %>

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :logged_in_user
   helper_method :logged_in?
+  helper_method :admin_logged_in?
 
   def logged_in?
     session.include? :user_id

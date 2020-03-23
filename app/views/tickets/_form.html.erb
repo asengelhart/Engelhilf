@@ -8,7 +8,7 @@
     <%= f.label :content, "Describe your problem:" %> <br>
     <%= f.text_area :content %> <br>
   </div>
-  <div>
+  <div class="field">
     <%= f.label :urgency, "How urgent is your problem? (select one)" %> <br>
     <%= f.collection_radio_buttons :urgency, Ticket.urgency_levels, :first, :last %> <br>
   </div>

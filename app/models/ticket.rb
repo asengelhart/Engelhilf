@@ -28,19 +28,17 @@ class Ticket < ApplicationRecord
     }
   end
 
-  def self.only_an_annoyance
-    where(urgency: 0)
+  def self.by_urgency_level(levels)
+    where(urgency: levels)
   end
 
-  def self.hurts_productivity
-    where(urgency: 1)
-  end
-
-  def self.halts_work
-    where(urgency: 2)
-  end
-
-  def self.open_tickets
-    where(cldosed_at: nil)
+  def self.open_or_closed_tickets(status)
+    if status == "open"
+      where(closed_at: nil)
+    elsif status == "closed"
+      where.not(closed_at: nil)
+    else
+      unscope(where: :closed_at)
+    end
   end
 end
