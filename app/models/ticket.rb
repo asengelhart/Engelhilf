@@ -12,9 +12,10 @@ class Ticket < ApplicationRecord
   end
 
   def closed=(closed)
-    if closed == true
+    # Covers various ways of signifying true or false
+    if [true, "true", 1, "1"].include?(closed)
       self.closed_at = Time.zone.now
-    elsif closed == false
+    elsif [false, "false", 0, "0"].include(closed)
       self.closed_at = nil
     end
   end

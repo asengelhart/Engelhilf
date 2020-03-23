@@ -14,7 +14,7 @@ class TicketsController < ApplicationController
 
   def edit
     @ticket = Ticket.find_by(id: params[:id])
-    @comment = @ticket.comments.build
+    @user_id = @ticket.user_id
   end
 
   def show
@@ -24,14 +24,19 @@ class TicketsController < ApplicationController
 
   def create
     ticket = Ticket.new(ticket_params)
-    validate_ticket(ticket)
+    validate_ticket(ticket) do
+      redirect_to new_ticket_path(ticket)
+    end
   end
 
   def update
     ticket = Ticket.find_by(id: params[:id])
-    redirect_with_error("Ticket not found.") if ticket.nil?
+    return show_error("Ticket not found.") if ticket.nil?
+
     ticket.update(ticket_params)
-    validate_ticket(ticket)
+    validate_ticket(ticket) do
+      redirect_to edit_ticket_path(ticket)
+    end
   end
 
   private
@@ -54,8 +59,8 @@ class TicketsController < ApplicationController
       ticket.save
       redirect_to ticket_path(ticket)
     else
-      flash[:alert] = @ticket.errors.full_messages
-      render :new
+      flash[:alert] = ticket.errors.full_messages
+      yield
     end
   end
 end
