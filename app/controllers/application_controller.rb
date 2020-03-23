@@ -10,8 +10,19 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id])
   end
 
+  def admin_logged_in?
+    logged_in? && logged_in_user.is_admin
+  end
+
   def check_logged_in
     redirect_to login_path unless logged_in?
+  end
+
+  def admin_only
+    unless logged_in_user.is_admin?
+      flash[:alert] = "This action requires administrative privileges."
+      redirect_to login_path
+    end
   end
 
   def show_error(alert)

@@ -6,4 +6,9 @@
   <%= password_field_tag :password %>
   <%= submit_tag "Submit "%>
 <% end %>
-<%= link_to "...or login using Google!", '/auth/google_oauth2' %>
+<p>
+  <%= link_to "Sign up here", new_user_path %>
+</p>
+<p>
+  <%= link_to "...or login using Google!", '/auth/google_oauth2' %>
+</p>

@@ -1,0 +1,23 @@
+<% title "Signup" %>
+<%= form_for @user do |f| %>
+  <div>
+    <%= f.label :username, "Enter your name here:" %> <br>
+    <%= f.text_field :username %> <br>
+  </div>
+  <div>
+    <%= f.label :email, "Email address (you'll use this to log in):"%> <br>
+    <%= f.text_field :email %> <br>
+  </div>
+  <div>
+    <%= f.label :password, "Password:" %> <br>
+    <%= f.password_field :password %> <br>
+  </div>
+  <% if @show_admin_option %>
+    <div>
+      <%= f.label :is_admin, "Is this user an admin?" %>
+      <%= f.check_box :is_admin, {}, true, false %>
+    </div>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+
