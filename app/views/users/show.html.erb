@@ -1,4 +1,7 @@
 <h1><%= @user.username %></h1>
+<h2>Email: <%= link_to @user.email, "mailto:#{@user.email}" %></h2>
+<% if show_tickets(@user) %>
 <h2>Tickets: </h2>
 <p><%= link_to "Create new ticket", new_user_ticket_path(@user) %></p>
-<%= render partial: 'tickets/tickets', locals: { tickets: @user.tickets } %>
+  <%= render partial: 'tickets/tickets', locals: { tickets: @user.tickets } %>
+<% end %>

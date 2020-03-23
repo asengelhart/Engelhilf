@@ -1,5 +1,13 @@
 <% title "Ticket: #{@ticket.subject}" %>
 <%= render partial: 'ticket', locals: {ticket: @ticket} %>
+<% if @assisting_admins %>
+  <ul>This ticket has been answered by:
+    <% @assisting_admins.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li>
+    <% end %>
+  </ul>
+<% end %>
+<p><%= link_to "Edit this ticket", edit_ticket_path(@ticket) %></p>
 <h3>Comments:</h3>
 <%= render partial: 'comments/comments', locals: {comments: @ticket.comments} %>
 <br>

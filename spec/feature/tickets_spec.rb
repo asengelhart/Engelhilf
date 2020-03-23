@@ -75,4 +75,14 @@ describe "tickets", type: :feature do
       expect(page).to have_content("Closed")
     end
   end
+
+  describe "GET ticket" do
+    it "filters tickets" do
+      log_me_in(@admin.email, "password")
+      visit tickets_path
+      check "urgency_levels_1"
+      click_on "Save"
+      expect(page).not_to have_content(@ticket1.subject)
+    end
+  end
 end

@@ -2,26 +2,15 @@ class TicketsController < ApplicationController
   def show
     @ticket = Ticket.find_by(id: params[:id])
     @comment = @ticket.comments.build
+    assisting_admins = @ticket.comment_authors.admins
+    @assisting_admins = !assisting_admins.empty? ? assisting_admins : nil
   end
 
   def index
-    return redirect_to(user_path(params[:user_id])) if params[:user_id]
-    admin_only
-    @tickets = Ticket.all
-    if params[:urgency_levels] && !params[:urgency_levels].blank?
-      @tickets = @tickets.by_urgency_level(params[:urgency_levels])
-    end
-    if params[:open_or_closed]
-      if params[:open_or_closed] == "open"
-        @tickets = @tickets.open_tickets
-      elsif params[:open_or_closed] == "closed"
-        @tickets = @tickets.closed_tickets
-      end
-    end
-
+    admin_only unless params[:user_id] && params[:user_id] == logged_in_user.id
+    @tickets = Ticket.filter_tickets(params)
     @urgency_levels = Ticket.urgency_levels
     @open_closed_options = ["open", "closed", "both"]
-    render :index
   end
 
   def new
@@ -51,7 +40,7 @@ class TicketsController < ApplicationController
 
   def update
     @ticket = Ticket.find_by(id: params[:id])
-    return show_error("Ticket not found.") if ticket.nil?
+    return show_error("Ticket not found.") if @ticket.nil?
 
     @ticket.update(ticket_params)
     validate_ticket(@ticket) do

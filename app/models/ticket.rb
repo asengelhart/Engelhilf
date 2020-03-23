@@ -41,4 +41,19 @@ class Ticket < ApplicationRecord
       unscope(where: :closed_at)
     end
   end
+
+  def self.filter_tickets(params)
+    tickets = self.all
+    if params[:urgency_levels] && !params[:urgency_levels].blank?
+      tickets = tickets.by_urgency_level(params[:urgency_levels])
+    end
+    if params[:open_or_closed]
+      if params[:open_or_closed] == "open"
+        tickets = tickets.open_tickets
+      elsif params[:open_or_closed] == "closed"
+        tickets = tickets.closed_tickets
+      end
+    end
+    tickets
+  end
 end
