@@ -1,11 +1,6 @@
 <%= render partial: 'ticket', locals: {ticket: @ticket} %>
 <h3>Comments:</h3>
-<% @ticket.comments.each do |comment| %>
-  <% if comment.user %>
-    <p><%= link_to comment.user.username, user_path(comment.user) %> wrote on <%= comment.created_at %>:</p>
-    <p><%= comment.content %></p> <br>
-  <% end %>
-<% end %>
+<%= render partial: 'comments/comments', locals: {comments: @ticket.comments} %>
 <br>
 <h3>Add comment:</h3>
 <%= form_for @ticket do |f| %>

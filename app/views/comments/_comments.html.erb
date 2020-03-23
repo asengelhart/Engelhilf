@@ -1,0 +1,8 @@
+<% comments.each do |comment| %>
+  <% if comment.user %>
+    <div class="comment_block">
+      <p><%= link_to comment.user.username, user_path(comment.user) %> wrote on <%= comment.created_at %>:</p>
+      <p><%= comment.content %></p>
+    </div>
+  <% end %>
+<% end %>

@@ -3,5 +3,5 @@
   <!--<%= c.hidden_field :ticket_id %>-->
   <%= c.hidden_field :user_id, value: logged_in_user.id %>
   <%= c.label :content, "Enter note here:" %> <br>
-  <%= c.text_field :content %>
+  <%= c.text_area :content %> <br>
 <% end %>
