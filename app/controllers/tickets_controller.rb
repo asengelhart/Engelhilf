@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   end
 
   def index
-    admin_only unless params[:user_id] && params[:user_id] == logged_in_user.id
+    admin_only unless params[:user_id] && params[:user_id].to_i == logged_in_user.id
     @tickets = Ticket.filter_tickets(params)
     @urgency_levels = Ticket.urgency_levels
     @open_closed_options = ["open", "closed", "both"]
@@ -41,7 +41,6 @@ class TicketsController < ApplicationController
   def update
     @ticket = Ticket.find_by(id: params[:id])
     return show_error("Ticket not found.") if @ticket.nil?
-
     @ticket.update(ticket_params)
     validate_ticket(@ticket) do
       render :edit

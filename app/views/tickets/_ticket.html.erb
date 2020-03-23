@@ -1,4 +1,5 @@
 <h3><%= ticket.subject %></h3>
+<p>Submitted by <%= link_to ticket.user.username, user_path(ticket.user) %></p>
 <div><p>Urgency level: <%= Ticket.urgency_levels[ticket.urgency] %></p></div>
 <% if ticket.closed %>
   <div><p>Closed on: <%= ticket.closed_at %></p></div>

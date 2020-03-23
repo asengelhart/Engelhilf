@@ -15,7 +15,7 @@ class Ticket < ApplicationRecord
     # Covers various ways of signifying true or false
     if [true, "true", 1, "1"].include?(closed)
       self.closed_at = Time.zone.now
-    elsif [false, "false", 0, "0"].include(closed)
+    elsif [false, "false", 0, "0"].include?(closed)
       self.closed_at = nil
     end
   end
@@ -29,7 +29,11 @@ class Ticket < ApplicationRecord
   end
 
   def self.by_urgency_level(levels)
-    where(urgency: levels)
+    if levels != [""] # empty array from no checkboxes being marked
+      where(urgency: levels)
+    else
+      unscope(where: :urgency)
+    end
   end
 
   def self.open_or_closed_tickets(status)
@@ -44,15 +48,12 @@ class Ticket < ApplicationRecord
 
   def self.filter_tickets(params)
     tickets = self.all
+    tickets = tickets.where(user_id: params[:user_id]) if params[:user_id]
     if params[:urgency_levels] && !params[:urgency_levels].blank?
       tickets = tickets.by_urgency_level(params[:urgency_levels])
     end
     if params[:open_or_closed]
-      if params[:open_or_closed] == "open"
-        tickets = tickets.open_tickets
-      elsif params[:open_or_closed] == "closed"
-        tickets = tickets.closed_tickets
-      end
+      tickets = tickets.open_or_closed_tickets(params[:open_or_closed])
     end
     tickets
   end

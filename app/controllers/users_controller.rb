@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   def validate_user(user)
     if user.valid?
       user.save
+      session[:user_id] = user.id unless admin_logged_in?
       redirect_to user_path(user)
     else
       flash[:alert] = user.errors.full_messages

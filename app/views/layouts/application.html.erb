@@ -16,8 +16,10 @@
         <%= link_to "My tickets", user_tickets_path(logged_in_user.id) %>
         <%= link_to "Log out", logout_path, method: "post" %>
         <% if admin_logged_in? %>
-          <%= link_to "View All Users", users_path %>
-          <%= link_to "View All Tickets", tickets_path %>
+          <div class="admin_nav">
+            <%= link_to "View All Users", users_path %>
+            <%= link_to "View All Tickets", tickets_path %>
+          </div>
         <% end %>
       <% end %>
     </nav>

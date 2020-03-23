@@ -34,3 +34,7 @@ textarea {
 .field_with_errors {
   background-color: red;
 }
+
+.admin_nav {
+  float: right;
+}

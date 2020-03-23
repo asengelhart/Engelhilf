@@ -4,6 +4,7 @@
     <th>Date Opened</th>
     <th>Last Update</th>
     <th>Date Closed</th>
+    <th>Urgency (0-2)</th>
   </tr>
   <% tickets.each do |ticket| %>
     <tr>
@@ -11,6 +12,7 @@
       <td><%= ticket.created_at %></td>
       <td><%= ticket.updated_at %></td>
       <td><%= ticket.closed_at if ticket.closed %></td>
+      <td><%= ticket.urgency %></td>
     </tr>
   <% end %>
 </table>
